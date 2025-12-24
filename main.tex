@@ -481,10 +481,69 @@ $f(x)$是单调函数。
 %-----------------------
 \section{论文存在的问题}\label{section:problem}
 
+\subsection{性能问题}
+
+Barbastathis 等研究者在其综述\cite{barbastathis2019use} 中指出，通过迭代来获取结果的图像修复方法均存在着性能问题，主要原因在于迭代计算量大且难以并行，这导致即使是 FISTA 算法在实时应用中也难以达到神经网络的性能。
+
+Bottou 等研究者在其关于大规模机器学习的综述\cite{bottou2018optimization}中提到 FISTA 是一种全梯度方法，因此计算量相对于随机方法很大。
+
+Nehme 等研究者\cite{nehme2018deep}提出在实际的图像处理应用中，所有依赖于迭代优化和参数调优的传统方法，FISTA 方法是其中优秀的代表，都存在速度慢和可扩展性差的根本缺陷。因为实际的应用中，图片为了达到较高的精度会使用很高的像素，这导致网格会很大，造成 FISTA 算法性能很低。
+
+\subsection{应用困难}
+
+Yang 等研究者在其对于图像压缩感知（CS）的研究 \cite{yang2018admm}中阐述了以 FISTA 为代表的一系列迭代算法存在若干需要手动调优或依赖经验设置的因素，例如迭代步长、参数 $\lambda$ 等，如果设置不当会极大的影响性能。Mou 在其关于图像处理的论文\cite{mou2022deep}也提到了这一点。
 
 
+\subsection{成果难以适应越来越高的要求}
+
+Chung 等研究者在其关于图像生成的论文 \cite{chung2022improving}中指出，FISTA 算法需要手工设计正则项来完成工作，随着问题越来越复杂，简单的设计效果不佳。
+
+Song 等研究者在其影像学研究的实验中\cite{song2021solving}，使用 FISTA 算法去模糊图像，发现有许多伪影，而且也存在上文提到的性能问题。
 
 \section{围绕这篇论文可以开展哪些可行的研究}\label{section:application}
+
+\subsection{应用层面}
+
+\subsubsection{医学领域}
+
+本文方法在影像学中多有应用。
+
+Song 等研究者\cite{song2021solving} 提出 FISTA 方法可以用于影像学图像处理。Aggarwal 等研究者在为优化磁共振成像（MRI）质量设计神经网络的的工作中\cite{aggarwal2018modl}，提到收敛速度很慢，提出可以使用本文方法大大加快收敛速度。
+
+同时也是这篇工作提到，如本文这种快速且准确的图像修复方法，在计算机断层扫描（CT）\cite{elbakri2002statistical}、正电子发射断层显像（PET）\cite{verhaeghe2008dynamic}等医学影像学领域、和显微镜成像\cite{aguet2008model}等生物医学领域也可以起到重要的作用。 
+
+\subsubsection{物理学领域}
+
+Nehme 等研究者在其关于显微镜图像处理的研究中\cite{nehme2018deep}提出 FISTA 曾经是一种处理显微镜图像的优秀算法。
+
+
+\subsubsection{图像处理领域}
+
+本文研究的是图像去模糊领域，自然对于图像感知\cite{barbastathis2019use}等领域有很大的理论价值。
+
+Chung 等研究者在其关于图像生成的论文 \cite{chung2022improving}中指出，将需要生成图像的空白作为噪声部分，FISTA 算法是一种传统的图像生成方法基准，说明曾经 FISTA 算法也是图像生成的重要算法。
+
+
+\subsection{计算机科学层面}
+
+本文的方法 FISTA 算法的理论基础是凸优化，因此可以应用到其他凸优化问题中，也可以引入机器学习领域。
+
+Sun 等研究者在其研究非凸极小极大鞍点博弈（Non-Convex Min-Max Saddle Point Games）的数值优化的论文\cite{sun2016majorization}中，使用了本文的加速梯度优化思想。
+
+Lin 等研究者，在关于 CNN 的结构化剪枝的研究\cite{lin2019towards}中，采用FISTA快速且可靠地移除冗余神经网络。
+
+
+
+\subsection{未来展望}
+
+许多研究者对于本文方法也提出了很多有益的优化思路。
+
+Zhang 等研究者在对于图像去模糊问题\cite{zhang2017learning}的研究中，提出可以训练好的CNN去噪器来替代 FISTA 这类迭代方法中原有的去噪操作。
+
+Mou 等研究者在其关于图像修复的论文\cite{mou2022deep}中，使用了基于 FISTA 方法修改的基于机器学习的方法，将依赖于经验的 $A$ 矩阵和正则化项替换为了神经网络，研究了包括图像去雨（Image Deraining）、图像去模糊（Image Deblurring）、图像去噪（Image Denoising）和压缩感知（Compressive Sensing）等多个小领域。wang 等研究者在其相近领域的文章 \cite{wang2020model} 提出了相近的思路。
+
+
+
 阐述上述理论有哪些应用，可以列举使用了上述理论的论文、专利、软硬件产品等。
 
 
