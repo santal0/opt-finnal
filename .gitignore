@@ -12,3 +12,4 @@
 *.idx
 *.ind
 *.gz
+.DS_Store
