@@ -126,7 +126,7 @@ $$
 
 其中 $(z)_+ = \max(z, 0)$，下标 $i$ 表示向量的第 $i$ 个分量。
 
-然而尽管 ISTA 结构简单、易于实现，但其收敛速度较慢，通常仅具有 $O(1/k)$ 的次线性全局收敛速率，这在处理大规模实际问题时效率较低。在本篇论文发表前，就已经有研究者在数学上证明了 ISTA 生成的序列 $\{\bm{x}_k\}$ 在某些关于算子 $\bm{A}$ 的病态条件下可能具有极慢并且任意差的渐进收敛速率。因此，如何加速 ISTA 的收敛速度成为了一个重要的研究方向。本文正是在此背景下，针对 $l_1$ 正则化线性逆问题，提出了一种快速迭代收缩阈值算法（FISTA），旨在显著提升收敛效率，同时适用于更一般的非光滑复合优化问题。
+然而尽管 ISTA 结构简单、易于实现，但其收敛速度较慢，通常仅具有 $O(1/k)$ 的次线性全局收敛速率，这在处理大规模实际问题时效率较低。在本篇论文发表前，就已经有研究者在数学上证明了 ISTA 生成的序列 $\{\bm{x}_k\}$ 在某些关于算子 $\bm{A}$ 的病态条件下可能具有极慢并且任意差的渐进收敛速率\cite{bredies2008iterative}。因此，如何加速 ISTA 的收敛速度成为了一个重要的研究方向。本文正是在此背景下，针对 $l_1$ 正则化线性逆问题，提出了一种快速迭代收缩阈值算法（FISTA），旨在显著提升收敛效率，同时适用于更一般的非光滑复合优化问题。
 
 \subsection{论文的贡献}
 
@@ -134,7 +134,7 @@ $$
 
 \begin{enumerate}
     \item 理论层面：完成了 ISTA 算法的收敛性证明，提出快速迭代收缩阈值算法（FISTA）并完成收敛性证明。\\
-        针对 ISTA 的慢收敛缺陷，本篇论文结合了 Nesterov 的加速思想与近端操作的适配性设计，构建了 FISTA 算法框架，还证明了 ISTA 的全局收敛速度为 $O(1/k)$，而 FISTA 则达到了 $O(1/k^2)$ 的全局收敛速率，显著优于 ISTA。这一改进是通过引入一个由历史迭代点精心构造的辅助更新点 $\bm{y}_k$ 实现的，该点由前两步迭代结果的线性组合生成，形式上为
+        针对 ISTA 的慢收敛缺陷，本篇论文结合了 Nesterov 的加速思想\cite{nesterov1983method}与近端操作的适配性设计，构建了 FISTA 算法框架，还证明了 ISTA 的全局收敛速度为 $O(1/k)$，而 FISTA 则达到了 $O(1/k^2)$ 的全局收敛速率，显著优于 ISTA。这一改进是通过引入一个由历史迭代点精心构造的辅助更新点 $\bm{y}_k$ 实现的，该点由前两步迭代结果的线性组合生成，形式上为
         $$
         \bm{y}_{k+1} = \bm{x}_k + \frac{t_k}{t_{k+1}} (\bm{x}_k - \bm{x}_{k-1})
         $$
@@ -448,32 +448,32 @@ FISTA 算法的迭代解 \({x_{k}}\) , \({y_{k}}\) ，那么 \(\forall k \geq 1\
 同时，FISTA 算法收敛到的最佳精度远远高于 ISTA 算法和 MTWIST 算法。
 
 
-\section{附录}
+% \section{附录}
 
-\begin{defn2}[规范数]\label{defn:theone}
-如果$x \in (0,1)$，则称$x$为规范数。
-\end{defn2}
-\begin{lema2}\label{lema:theone}
-如果$x \in [0,1]$，则存在单调函数$\mathcal{G}(x)$ 有$\mathcal{G}(x) \geq f(x)$。
-\end{lema2}
-根据引理\ref{lema:theone}可以得到我们给出如下定理。
-\begin{thrm2}\label{thrm:theone}
-如果$x \in [0,1]$，则有$f(x) \geq f(y) + (x-y)^{\top} \nabla \mathcal{G}(x)$ 当且仅当 $f(\cdot)$是凸函数。
-\end{thrm2}
-根据定理\ref{thrm:theone}可以得到如下推论。
-\begin{corr2}\label{corr:theone}
-如果$x \in [0,1]$，则有$f(x)$是单调函数。
-\end{corr2}
-\begin{proof}
-引理证明如下。
-\end{proof}
-\begin{exmp2}\label{corr:theone}
-$f(x)= ax + b$，其中$a>0$。
-\end{exmp2}
+% \begin{defn2}[规范数]\label{defn:theone}
+% 如果$x \in (0,1)$，则称$x$为规范数。
+% \end{defn2}
+% \begin{lema2}\label{lema:theone}
+% 如果$x \in [0,1]$，则存在单调函数$\mathcal{G}(x)$ 有$\mathcal{G}(x) \geq f(x)$。
+% \end{lema2}
+% 根据引理\ref{lema:theone}可以得到我们给出如下定理。
+% \begin{thrm2}\label{thrm:theone}
+% 如果$x \in [0,1]$，则有$f(x) \geq f(y) + (x-y)^{\top} \nabla \mathcal{G}(x)$ 当且仅当 $f(\cdot)$是凸函数。
+% \end{thrm2}
+% 根据定理\ref{thrm:theone}可以得到如下推论。
+% \begin{corr2}\label{corr:theone}
+% 如果$x \in [0,1]$，则有$f(x)$是单调函数。
+% \end{corr2}
+% \begin{proof}
+% 引理证明如下。
+% \end{proof}
+% \begin{exmp2}\label{corr:theone}
+% $f(x)= ax + b$，其中$a>0$。
+% \end{exmp2}
 
-\begin{remark2}\label{remark:theone}
-$f(x)$是单调函数。
-\end{remark2}
+% \begin{remark2}\label{remark:theone}
+% $f(x)$是单调函数。
+% \end{remark2}
 
 
 %-----------------------
@@ -495,6 +495,8 @@ Yang 等研究者在其对于图像压缩感知（CS）的研究 \cite{yang2018a
 
 
 \subsection{成果难以适应越来越高的要求}
+
+\cite{monga2021algorithm} 中列出的表格表明，FISTA 等传统迭代算法在恢复质量和计算效率上往往不如现代深度学习方法，此类传统算法在现如今的应用范围已大不如前。
 
 Chung 等研究者在其关于图像生成的论文 \cite{chung2022improving}中指出，FISTA 算法需要手工设计正则项来完成工作，随着问题越来越复杂，简单的设计效果不佳。
 
@@ -532,7 +534,11 @@ Sun 等研究者在其研究非凸极小极大鞍点博弈（Non-Convex Min-Max 
 
 Lin 等研究者，在关于 CNN 的结构化剪枝的研究\cite{lin2019towards}中，采用FISTA快速且可靠地移除冗余神经网络。
 
+FISTA 可被用于恢复各种信号和图像，这暗示基于优化的神经网络也有可能具备类似的恢复能力。例如\cite{zhang2018ista}提出了一种基于 ISTA 的神经网络架构，称为 ISTA-Net，用于感知压缩等任务的端到端学习，其每一层的网络操作本质是对一次 ISTA 迭代的“网络化映射”。类似地，FISTA 也可以被“网络化”，形成 “FISTA-Net”，从而提升恢复性能。
 
+\cite{dhurandhar2018explanations} 以 FISTA 为核心算法，探究模型以某种特征的缺失作为分类依据的可解释性，
+
+深度学习中常使用到的稀疏自编码器（sparse autoencoder，SAE）等价于求解带 $l_1$ 正则化的优化问题，而 FISTA 可作为高效的求解器嵌入到 SAE 的训练过程中，从而提升训练效率和模型性能。
 
 \subsection{未来展望}
 
@@ -546,6 +552,11 @@ Mou 等研究者在其关于图像修复的论文\cite{mou2022deep}中，使用�
 
 阐述上述理论有哪些应用，可以列举使用了上述理论的论文、专利、软硬件产品等。
 
+\begin{enumerate}
+    \item FISTA 可被用于恢复各种信号和图像，这暗示基于优化的神经网络也有可能具备类似的恢复能力。例如\cite{zhang2018ista}提出了一种基于 ISTA 的神经网络架构，称为 ISTA-Net，用于感知压缩等任务的端到端学习，其每一层的网络操作本质是对一次 ISTA 迭代的“网络化映射”。类似地，FISTA 也可以被“网络化”，形成 “FISTA-Net”，从而提升恢复性能。
+    \item \cite{dhurandhar2018explanations} 以 FISTA 为核心算法，探究模型以某种特征的缺失作为分类依据的可解释性，
+    \item 深度学习中常使用到的稀疏自编码器（sparse autoencoder，SAE）等价于求解带 $l_1$ 正则化的优化问题，而 FISTA 可作为高效的求解器嵌入到 SAE 的训练过程中，从而提升训练效率和模型性能。
+\end{enumerate}
 
 
 %+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
